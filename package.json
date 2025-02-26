@@ -1,0 +1,52 @@
+{
+  "name": "foxglove-wheel",
+  "displayName": "foxglove-wheel",
+  "description": "The Foxglove Wheel extension is a custom panel for Foxglove Studio that displays a rotating wheel based on incoming message data. It allows you to configure display options and conversion factors through a settings editor, making it ideal for visualizing steering commands or similar data.",
+  "publisher": "Zoltan Zahuczki @ JKK Research",
+  "homepage": "",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "./dist/extension.js",
+
+  "foxglove": ">=1.0.0",
+  "panel": {
+    "main": "./dist/extension.js",
+    "configSchema": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string",
+          "title": "Steering Wheel Topic",
+          "description": "The topic that publishes steering wheel rotation data.",
+          "default": "/steering_wheel_angle"
+        }
+      },
+      "required": ["topic"]
+    }
+  },
+
+  "keywords": [],
+  "scripts": {
+    "build": "foxglove-extension build",
+    "foxglove:prepublish": "foxglove-extension build --mode production",
+    "lint": "eslint .",
+    "lint:ci": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "local-install": "foxglove-extension install",
+    "package": "foxglove-extension package",
+    "pretest": "foxglove-extension pretest"
+  },
+  "devDependencies": {
+    "@foxglove/eslint-plugin": "2.0.0",
+    "@foxglove/extension": "2.21.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "create-foxglove-extension": "1.0.4",
+    "esbuild": "^0.25.0",
+    "eslint": "9.20.0",
+    "prettier": "3.5.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "^5.7.3"
+  }
+}
