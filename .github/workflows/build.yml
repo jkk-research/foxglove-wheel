@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-release:
@@ -25,7 +26,9 @@ jobs:
 
       - name: Get version from package.json
         id: get_version
-        run: echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT$
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Create Release
         id: create_release
@@ -40,7 +43,9 @@ jobs:
 
       - name: Find .foxe file
         id: find_foxe
-        run: echo "foxe_file=$(find . -name '*.foxe')" >> $GITHUB_OUTPUT$
+        run: |
+          foxe_file=$(find . -name '*.foxe')
+          echo "foxe_file=$foxe_file" >> "$GITHUB_OUTPUT"
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
