@@ -9,7 +9,11 @@ The Foxglove Wheel extension is a custom panel for Foxglove Studio that displays
 - **Message Conversion:** Apply a configurable scaling factor (provided as a string) to incoming message data.
 - **Unit Selection:** Choose between degrees (`deg`) and radians (`rad`) for display.
 
-## Local installation
+## Basic installation
+
+**Drag and drop the latest `.foxe` build from the releases on the foxglove extensions panel.**
+
+## Local dev installation
 
 1. **Clone the Repository:**  
    ` git clone https://github.com/jkk-research/foxglove-wheel `
