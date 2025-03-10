@@ -152,13 +152,28 @@ export function initSteeringWheelPanel(
       title: "",
     },
     series: {
-      messagePath: "/lexus3/pacmod/steering_cmd.command",
+      messagePath: "",
       unit: "deg",
       scalingFactor: "1.0",
     },
   };
-  const config =
-    (myContext.config as SteeringWheelPanelConfig) || defaultConfig;
+
+  // Attempt to load stored config from localStorage.
+  const storedConfig = localStorage.getItem('foxglove-wheel-config');
+  const persisted: Partial<SteeringWheelPanelConfig> = storedConfig
+    ? JSON.parse(storedConfig)
+    : (myContext.config as Partial<SteeringWheelPanelConfig> || {});
+    
+  const config: SteeringWheelPanelConfig = {
+    general: {
+      ...defaultConfig.general,
+      ...persisted.general,
+    },
+    series: {
+      ...defaultConfig.series,
+      ...persisted.series,
+    },
+  };
 
   // Render the panel with the current configuration.
   root.render(<SteeringWheelPanel context={context} config={config} />);
@@ -177,6 +192,9 @@ export function initSteeringWheelPanel(
         ...((newConfig as any)?.series || {}),
       },
     };
+    // Save updated config to localStorage.
+    localStorage.setItem('foxglove-wheel-config', JSON.stringify(updatedConfig));
+    // Render updated panel.
     root.render(<SteeringWheelPanel context={context} config={updatedConfig} />);
     updateSettingsEditor(updatedConfig);
   };
