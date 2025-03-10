@@ -12,7 +12,7 @@ export interface SteeringWheelPanelConfig {
     title: string;       // default: ""
   };
   series: {
-    messagePath: string; // default: "/lexus3/pacmod/steering_cmd.command"
+    messagePath: string;
     unit: "deg" | "rad"; // default: "deg"
     scalingFactor: string; // default: "1.0" (accepts any string input)
   };
@@ -28,6 +28,13 @@ interface SteeringWheelPanelProps {
   config: SteeringWheelPanelConfig;
 }
 
+/**
+ * Helper to extract a nested value from an object using a dot-separated path.
+ */
+function getNestedValue(obj: any, path: string): any {
+  return path.split('.').reduce((acc, key) => acc && acc[key], obj);
+}
+
 function SteeringWheelPanel({
   context,
   config,
@@ -35,6 +42,14 @@ function SteeringWheelPanel({
   const [angle, setAngle] = useState(0);
   // Store the "done" callback from onRender so we can call it after render.
   const [renderDone, setRenderDone] = useState<(() => void) | undefined>();
+
+  // Split the full message path into topic and field parts.
+  // For example, "/lexus3/vehicle_status.twist.angular.z" becomes:
+  //    topicName: "/lexus3/vehicle_status"
+  //    fieldPath: "twist.angular.z"
+  const pathParts = config.series.messagePath.split('.');
+  const topicName = pathParts[0] || "";
+  const fieldPath = pathParts.slice(1).join('.');
 
   useLayoutEffect(() => {
     // Set up the onRender callback.
@@ -44,11 +59,12 @@ function SteeringWheelPanel({
       if (renderState.currentFrame) {
         for (const msgEvent of renderState.currentFrame) {
           console.log("Received message event:", msgEvent);
-          if (msgEvent.topic === config.series.messagePath) {
-            // Expect messages of the form { data: number }
-            const value = (msgEvent.message as any)?.data;
+          if (msgEvent.topic === topicName) {
+            // Use the fieldPath to extract the nested value, or fall back to .data.
+            const value = fieldPath
+              ? getNestedValue(msgEvent.message, fieldPath)
+              : (msgEvent.message as any)?.data;
             if (typeof value === "number") {
-              // Apply scaling conversion before setting the angle.
               setAngle(value * parseFloat(config.series.scalingFactor));
               break;
             }
@@ -57,10 +73,9 @@ function SteeringWheelPanel({
       }
     };
 
-    // Subscribe to the topic specified in the configuration.
-    context.subscribe([{ topic: config.series.messagePath }]);
+    context.subscribe([{ topic: topicName }]);
     context.watch("currentFrame");
-  }, [context, config.series.messagePath, config.series.scalingFactor]);
+  }, [context, topicName, fieldPath, config.series.scalingFactor]);
 
   useEffect(() => {
     renderDone?.();
