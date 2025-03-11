@@ -91,31 +91,28 @@ function SteeringWheelPanel({
         justifyContent: "center",
       }}
     >
+      {/*  saving this for reference
       <svg width="100%" height="100%" viewBox="0 0 200 200" style={{ overflow: "visible" }}>
-        {/* Wheel group rotates; text remains upright */}
         <g transform={`rotate(${angle}, 100, 100)`}>
-          {/* Outer circle for the border */}
-          <circle
-            cx="100"
-            cy="100"
-            r="85"  // Slightly larger radius for the border
-            stroke="#524994"  // Border color
-            strokeWidth="5"  // Border width
-            fill="none"
+            <circle
+              cx="100"
+              cy="100"
+              r="85"
+              stroke="#524994"
+              stroke-width="15"
+              fill="none"
           />
-          {/* Inner circle for the wheel */}
           <circle
-            cx="100"
-            cy="100"
-            r="80"
-            stroke="#524994"  // Stroke color for the circle
-            strokeWidth="2"
-            fill="none"
+              cx="100"
+              cy="100"
+              r="60"
+              stroke="#524994"
+              stroke-width="2"
+              fill="#524994"
           />
-          <line x1="100" y1="100" x2="100" y2="180" stroke="#524994" strokeWidth="5" />
-          <line x1="20" y1="100" x2="180" y2="100" stroke="#524994" strokeWidth="5" />
+          <line x1="100" y1="100" x2="100" y2="180" stroke="#524994" stroke-width="15" />
+          <line x1="20" y1="100" x2="180" y2="100" stroke="#524994" stroke-width="15" />
         </g>
-        {/* Display text in the center; remains unrotated */}
         <text
           x="100"
           y="100"
@@ -124,7 +121,7 @@ function SteeringWheelPanel({
           style={{
             fontSize: `${config.general.fontSize}px`,
             fill: "white",
-            stroke: "black",
+            stroke: "#524994",
             strokeWidth: "1",
           }}
         >
@@ -132,7 +129,33 @@ function SteeringWheelPanel({
           {angle.toFixed(config.general.precision)}
           {config.series.unit === "deg" ? "°" : " rad"}
         </text>
+      </svg> 
+      */}
+      <svg width="100%" height="100%" viewBox="0 0 250 250" style={{overflow: "visible"}}>
+        <g transform={`rotate(${angle}, 125, 125)`}>
+        <path d="M124.75,0C55.8525,0,0,55.8525,0,124.75s55.8525,124.75,124.75,124.75,124.75-55.8525,124.75-124.75S193.6475,0,124.75,0ZM124.75,15.2472c54.0964,0,99.0246,39.2293,107.9037,90.7903h-28.2767c-8.4621-36.1478-40.8996-63.0681-79.627-63.0681s-71.165,26.9203-79.627,63.0681h-28.2767C25.7254,54.4765,70.6536,15.2472,124.75,15.2472ZM16.6167,142.0764h28.1981c6.6938,31.0265,30.9874,55.5024,61.9157,62.4579v28.2342c-46.2696-7.6618-82.7423-44.3252-90.1139-90.6921ZM142.7694,232.7685v-28.2342c30.9283-6.9555,55.2219-31.4314,61.9157-62.4579h28.1981c-7.3716,46.367-43.8443,83.0304-90.1139,90.6921Z"
+          fill="#FFFFFF25" fill-rule="evenodd" stroke="#524994" stroke-width="5"
+          />
+     </g>
+        <text
+          x="125"
+          y="125"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          style={{
+            fontSize: `${config.general.fontSize}px`,
+            fill: "white",
+            stroke: "#524994",
+            strokeWidth: "0",
+            fontWeight: "bold"
+          }}
+        >
+          {config.general.title ? `${config.general.title}: ` : ""}
+          {angle.toFixed(config.general.precision)}
+          {config.series.unit === "deg" ? "°" : " rad"}
+        </text>
       </svg>
+      
     </div>
   );
 }
