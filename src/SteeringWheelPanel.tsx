@@ -91,7 +91,6 @@ function SteeringWheelPanel({
         justifyContent: "center",
       }}
     >
-      {/*  saving this for reference
       <svg width="100%" height="100%" viewBox="0 0 200 200" style={{ overflow: "visible" }}>
         <g transform={`rotate(${angle}, 100, 100)`}>
             <circle
@@ -123,6 +122,7 @@ function SteeringWheelPanel({
             fill: "white",
             stroke: "#524994",
             strokeWidth: "1",
+            fontWeight: "bold"
           }}
         >
           {config.general.title ? `${config.general.title}: ` : ""}
@@ -130,8 +130,8 @@ function SteeringWheelPanel({
           {config.series.unit === "deg" ? "°" : " rad"}
         </text>
       </svg> 
-      */}
-      <svg width="100%" height="100%" viewBox="0 0 250 250" style={{overflow: "visible"}}>
+     
+      {/* <svg width="100%" height="100%" viewBox="0 0 250 250" style={{overflow: "visible"}}>
         <g transform={`rotate(${angle}, 125, 125)`}>
         <path d="M124.75,0C55.8525,0,0,55.8525,0,124.75s55.8525,124.75,124.75,124.75,124.75-55.8525,124.75-124.75S193.6475,0,124.75,0ZM124.75,15.2472c54.0964,0,99.0246,39.2293,107.9037,90.7903h-28.2767c-8.4621-36.1478-40.8996-63.0681-79.627-63.0681s-71.165,26.9203-79.627,63.0681h-28.2767C25.7254,54.4765,70.6536,15.2472,124.75,15.2472ZM16.6167,142.0764h28.1981c6.6938,31.0265,30.9874,55.5024,61.9157,62.4579v28.2342c-46.2696-7.6618-82.7423-44.3252-90.1139-90.6921ZM142.7694,232.7685v-28.2342c30.9283-6.9555,55.2219-31.4314,61.9157-62.4579h28.1981c-7.3716,46.367-43.8443,83.0304-90.1139,90.6921Z"
           fill="#FFFFFF25" fill-rule="evenodd" stroke="#524994" stroke-width="5"
@@ -146,7 +146,7 @@ function SteeringWheelPanel({
             fontSize: `${config.general.fontSize}px`,
             fill: "white",
             stroke: "#524994",
-            strokeWidth: "0",
+            strokeWidth: "2",
             fontWeight: "bold"
           }}
         >
@@ -154,7 +154,7 @@ function SteeringWheelPanel({
           {angle.toFixed(config.general.precision)}
           {config.series.unit === "deg" ? "°" : " rad"}
         </text>
-      </svg>
+      </svg> */}
       
     </div>
   );
