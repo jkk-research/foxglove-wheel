@@ -1,3 +1,4 @@
+![Build status](https://github.com/jkk-research/foxglove-wheel/actions/workflows/build.yml/badge.svg)
 # Foxglove Wheel Extension
 
 The Foxglove Wheel extension is a custom panel for Foxglove Studio that displays a rotating wheel based on incoming message data. It allows you to configure display options and conversion factors through a settings editor, making it ideal for visualizing steering commands or similar data.
