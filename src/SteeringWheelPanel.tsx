@@ -15,6 +15,7 @@ export interface SteeringWheelPanelConfig {
     messagePath: string;
     unit: "deg" | "rad"; // default: "deg"
     scalingFactor: string; // default: "1.0" (accepts any string input)
+    numberScalingFactor: string; // default: "1.0" (accepts any string input)
   };
 }
 
@@ -126,7 +127,7 @@ function SteeringWheelPanel({
           }}
         >
           {config.general.title ? `${config.general.title}: ` : ""}
-          {angle.toFixed(config.general.precision)}
+          {(parseFloat(angle.toFixed(config.general.precision))*parseFloat(config.series.numberScalingFactor)).toFixed(config.general.precision)}
           {config.series.unit === "deg" ? "°" : " rad"}
         </text>
       </svg> 
@@ -178,6 +179,7 @@ export function initSteeringWheelPanel(
       messagePath: "",
       unit: "deg",
       scalingFactor: "1.0",
+      numberScalingFactor: "1.0",
     },
   };
 
@@ -267,6 +269,11 @@ export function initSteeringWheelPanel(
               label: "Scaling Factor",
               input: "string" as const,
               value: currentConfig.series.scalingFactor,
+            },
+            numberScalingFactor: {
+              label: "Number Scaling Factor",
+              input: "string" as const,
+              value: currentConfig.series.numberScalingFactor,
             },
           },
         },

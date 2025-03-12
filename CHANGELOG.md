@@ -19,3 +19,7 @@
 ## 0.1.4
 
 - New steering wheel design.
+
+## 0.1.5
+
+- Add number scaling factor parameter.
