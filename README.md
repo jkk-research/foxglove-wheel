@@ -14,7 +14,7 @@ The Foxglove Wheel extension is a custom panel for Foxglove Studio that displays
 
 ## Basic installation
 
-**Drag and drop the latest `.foxe` build from the releases on the foxglove extensions panel.**
+**Drag and drop the latest `.foxe` build from [the releases](https://github.com/jkk-research/foxglove-wheel/releases) on the foxglove extensions panel.**
 
 ## Local dev installation
 
